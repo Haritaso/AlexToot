@@ -7,7 +7,7 @@ const alexa_id = process.env.ALEXA_ID
 
 const handlers = {
   'Unhandled': function () {
-    let any = this.event.request.intent.slots.any.value
+    const any = this.event.request.intent.slots.any.value
     const option = {
       hostname: mastodon_url,
       path: '/api/v1/statuses',
@@ -18,7 +18,7 @@ const handlers = {
         Authorization: 'Bearer ' + mastodon_token
       },
     }
-    let data = JSON.stringify({
+    const data = JSON.stringify({
       status: any + ' from Amazon Alexa'
     })
     const req = https.request(option)
@@ -29,7 +29,7 @@ const handlers = {
 }
 
 exports.handler = function (event, context, callback) {
-  let alexa = Alexa.handler(event, context, callback)
+  const alexa = Alexa.handler(event, context, callback)
   alexa.appId = alexa_id
   alexa.registerHandlers(handlers)
   alexa.execute()
